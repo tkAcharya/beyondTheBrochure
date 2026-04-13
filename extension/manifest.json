@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Travel Analyst - Brutally Honest Guide",
+  "version": "1.0.0",
+  "description": "Cuts through tourist PR and gives you the blunt truth about any travel destination.",
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "http://127.0.0.1:8000/*"
+  ]
+}

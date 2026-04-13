@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="glass-container">
+    <header>
+      <h1>Travel Analyst</h1>
+      <p class="subtitle">The Blunt Truth</p>
+    </header>
+
+    <div class="input-group">
+      <input type="text" id="destination-input" placeholder="Enter destination (e.g. Paris)" autocomplete="off">
+      <button id="analyze-btn">Analyze</button>
+    </div>
+
+    <div id="loading" class="hidden">
+      <div class="spinner"></div>
+      <h3 id="loading-percentage">0%</h3>
+      <p id="loading-message">Scraping the internet for the ugly truth...</p>
+    </div>
+
+    <div id="error-message" class="hidden alert"></div>
+
+    <div class="tabs-container hidden" id="tabs-container">
+      <button class="tab-btn active" data-tab="tab-analysis">Analysis</button>
+      <button class="tab-btn" data-tab="tab-references">References</button>
+    </div>
+
+    <div id="results" class="hidden">
+      <!-- Analysis Tab Content -->
+      <div id="tab-analysis" class="tab-content active">
+        <div class="card verdict">
+          <h3>Verdict <span id="res-smiley"></span></h3>
+          <p id="res-verdict"></p>
+        </div>
+        
+        <div class="card">
+          <h3>User Sentiments <span class="icon">💬</span></h3>
+          <p id="res-sentiments"></p>
+        </div>
+
+        <div class="card">
+          <h3>Hidden Truths <span class="icon">🤫</span></h3>
+          <p id="res-truths"></p>
+        </div>
+
+        <div class="card">
+          <h3>Monsoon / Crowd Risks <span class="icon">⛈️</span></h3>
+          <p id="res-risks"></p>
+        </div>
+
+        <div class="card">
+          <h3>Realistic Budget <span class="icon">💸</span></h3>
+          <p id="res-budget"></p>
+        </div>
+
+        <div class="card">
+          <h3>Off-Radar Tips <span class="icon">🧭</span></h3>
+          <p id="res-tips"></p>
+        </div>
+
+        <div class="card">
+          <h3>Staycations <span class="icon">🏡</span></h3>
+          <p id="res-staycations"></p>
+        </div>
+      </div>
+
+      <!-- References Tab Content -->
+      <div id="tab-references" class="tab-content hidden">
+        <div id="references-list">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
