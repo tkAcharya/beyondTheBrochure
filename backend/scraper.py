@@ -101,11 +101,16 @@ def gather_destination_data_stream(destination: str):
                 content = extract_text_from_url(url)
                 if content:
                     aggregated_text.append(f"--- SOURCE: {source_name} ({url}) ---\n{content}\n")
-                    references.append({
+                    new_ref = {
                         "name": source_name,
                         "url": url,
                         "content_snippet": content[:500] # Give 500 chars snippet for rating
-                    })
+                    }
+                    references.append(new_ref)
+                    yield {
+                        "type": "reference_found",
+                        "reference": new_ref
+                    }
         
         # Sleep slightly to avoid DDG rate limits
         time.sleep(1.5)

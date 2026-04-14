@@ -19,62 +19,154 @@
       <button id="analyze-btn">Analyze</button>
     </div>
 
-    <div id="loading" class="hidden">
-      <div class="spinner"></div>
-      <h3 id="loading-percentage">0%</h3>
-      <p id="loading-message">Scraping the internet for the ugly truth...</p>
+
+    <div id="history-container" class="hidden" style="margin-bottom: 16px;">
+      <p class="subtitle" style="font-size:11px; margin-bottom:8px">Recent Searches</p>
+      <div id="history-chips" class="chips-container"></div>
     </div>
 
     <div id="error-message" class="hidden alert"></div>
 
     <div class="tabs-container hidden" id="tabs-container">
       <button class="tab-btn active" data-tab="tab-analysis">Analysis</button>
-      <button class="tab-btn" data-tab="tab-references">References</button>
+      <button class="tab-btn" data-tab="tab-plan">Plan</button>
+      <button class="tab-btn" data-tab="tab-book">Book</button>
+      <button class="tab-btn" data-tab="tab-references">Refs</button>
     </div>
 
     <div id="results" class="hidden">
       <!-- Analysis Tab Content -->
       <div id="tab-analysis" class="tab-content active">
-        <div class="card verdict">
-          <h3>Verdict <span id="res-smiley"></span></h3>
-          <p id="res-verdict"></p>
+        <div class="loading-state hidden">
+          <div class="spinner"></div>
+          <h3 class="loading-percentage">0%</h3>
+          <p class="loading-message">Scraping the internet for the ugly truth...</p>
         </div>
-        
-        <div class="card">
-          <h3>User Sentiments <span class="icon">💬</span></h3>
-          <p id="res-sentiments"></p>
-        </div>
+        <div class="tab-body hidden">
+          <div class="card verdict expandable" style="position: relative;">
+            <h3 style="justify-content: flex-start; gap: 8px;">Verdict <span id="res-smiley"></span></h3>
+            <div id="res-score" class="score-badge"></div>
+            <p id="res-verdict"></p>
+            <button id="share-verdict-btn" class="icon-btn" style="margin-top: 10px; width: 100%;">Copy verdict</button>
+          </div>
+          
+          <div class="card expandable">
+            <div class="card-header">
+              <h3>User Sentiments <span class="icon">💬</span></h3>
+              <button class="expand-btn">▼</button>
+            </div>
+            <div class="card-body hidden">
+              <p id="res-sentiments"></p>
+              <div id="sentiment-bars-container" class="bars-container" style="margin-top: 10px;"></div>
+            </div>
+          </div>
 
-        <div class="card">
-          <h3>Hidden Truths <span class="icon">🤫</span></h3>
-          <p id="res-truths"></p>
-        </div>
+          <div class="card expandable">
+            <div class="card-header">
+              <h3>Hidden Truths <span class="icon">🤫</span></h3>
+              <button class="expand-btn">▼</button>
+            </div>
+            <div class="card-body hidden">
+              <p id="res-truths"></p>
+            </div>
+          </div>
 
-        <div class="card">
-          <h3>Monsoon / Crowd Risks <span class="icon">⛈️</span></h3>
-          <p id="res-risks"></p>
-        </div>
+          <div class="card expandable">
+            <div class="card-header">
+              <h3>Monsoon / Crowd Risks <span class="icon">⛈️</span></h3>
+              <button class="expand-btn">▼</button>
+            </div>
+            <div class="card-body hidden">
+              <p id="res-risks"></p>
+              <div id="heatmap-container" class="heatmap-grid" style="margin-top: 10px;"></div>
+            </div>
+          </div>
 
-        <div class="card">
-          <h3>Realistic Budget <span class="icon">💸</span></h3>
-          <p id="res-budget"></p>
-        </div>
+          <div class="card expandable">
+            <div class="card-header">
+              <h3>Realistic Budget <span class="icon">💸</span></h3>
+              <button class="expand-btn">▼</button>
+            </div>
+            <div class="card-body hidden">
+              <p id="res-budget"></p>
+              <div id="budget-grid" class="budget-2x2" style="margin-top: 10px;"></div>
+            </div>
+          </div>
 
-        <div class="card">
-          <h3>Off-Radar Tips <span class="icon">🧭</span></h3>
-          <p id="res-tips"></p>
-        </div>
+          <div class="card expandable">
+            <div class="card-header">
+              <h3>Off-Radar Tips <span class="icon">🧭</span></h3>
+              <button class="expand-btn">▼</button>
+            </div>
+            <div class="card-body hidden">
+              <div class="pill-tags" id="tips-tags"></div>
+              <p id="res-tips"></p>
+            </div>
+          </div>
 
-        <div class="card">
-          <h3>Staycations <span class="icon">🏡</span></h3>
-          <p id="res-staycations"></p>
+          <div class="card expandable">
+            <div class="card-header">
+              <h3>Staycations <span class="icon">🏡</span></h3>
+              <button class="expand-btn">▼</button>
+            </div>
+            <div class="card-body hidden">
+              <div class="pill-tags" id="staycation-tags"></div>
+              <p id="res-staycations"></p>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- References Tab Content -->
       <div id="tab-references" class="tab-content hidden">
+        <div class="loading-state hidden">
+          <div class="spinner"></div>
+          <h3 class="loading-percentage">0%</h3>
+          <p class="loading-message">Scraping the internet for the ugly truth...</p>
+        </div>
         <div id="references-list">
           <!-- Dynamically populated -->
+        </div>
+      </div>
+      
+      <!-- Plan Tab Content -->
+      <div id="tab-plan" class="tab-content hidden">
+        <div class="plan-controls">
+          <div class="select-group">
+            <select id="itin-days">
+              <option value="3">3 Days</option>
+              <option value="5" selected>5 Days</option>
+              <option value="7">7 Days</option>
+            </select>
+            <select id="itin-style">
+              <option value="budget">Budget</option>
+              <option value="moderate" selected>Moderate</option>
+              <option value="luxury">Luxury</option>
+            </select>
+          </div>
+          <div class="select-group">
+            <select id="itin-travelers">
+              <option value="solo" selected>Solo</option>
+              <option value="couple">Couple</option>
+              <option value="family">Family</option>
+              <option value="group">Group</option>
+            </select>
+            <select id="itin-focus">
+              <option value="mixed" selected>Mixed</option>
+              <option value="culture">Culture</option>
+              <option value="food">Food</option>
+              <option value="nature">Nature</option>
+            </select>
+          </div>
+          <button id="gen-itinerary-btn" style="width: 100%; margin-top: 8px;">✨ Generate Plan</button>
+        </div>
+        <div id="itinerary-output"></div>
+      </div>
+
+      <!-- Book Tab Content -->
+      <div id="tab-book" class="tab-content hidden">
+        <div id="book-links">
+            <p style="color:var(--text-muted);font-size:13px;text-align:center;">Analyze a destination to load booking links…</p>
         </div>
       </div>
     </div>

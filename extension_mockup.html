@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beyond The Brochure — UI Redesign Concepts</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Outfit', 'Segoe UI', sans-serif;
+  background: #0c0c10;
+  color: #fff;
+  min-height: 100vh;
+  padding: 44px 20px 60px;
+}
+
+/* ── PAGE HEADER ── */
+.page-header { text-align: center; margin-bottom: 16px; }
+.page-header h1 { font-size: 26px; font-weight: 800; letter-spacing: -0.5px; }
+.page-header h1 span { background: linear-gradient(90deg,#fb7185,#f43f5e); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.page-header p { color: #555; font-size: 14px; margin-top: 6px; }
+
+/* ── CONCEPT SWITCHER ── */
+.state-note { text-align:center; color:#444; font-size:12px; margin-bottom:14px; }
+.tabs {
+  display: flex; justify-content: center; gap: 10px; margin-bottom: 44px; flex-wrap: wrap;
+}
+.tab-btn {
+  padding: 9px 22px; border-radius: 999px;
+  border: 1.5px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.04);
+  color: #666; font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: all 0.2s; font-family: inherit;
+}
+.tab-btn:hover { border-color: rgba(255,255,255,0.25); color: #ccc; }
+.tab-btn.active { background: #f43f5e; color: #fff; border-color: #f43f5e; }
+
+/* ── STAGE ── */
+.stage {
+  display: flex; justify-content: center;
+  align-items: flex-start; gap: 36px; flex-wrap: wrap;
+}
+.mockup-col { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.mockup-label { font-size: 11px; color: #444; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; }
+
+/* ── CHROME FRAME ── */
+.chrome-frame {
+  width: 400px; border-radius: 12px; overflow: hidden;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.07);
+}
+.chrome-bar {
+  background: #222226; padding: 9px 14px;
+  display: flex; align-items: center; gap: 7px;
+}
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.dot.r { background: #ff5f57; }
+.dot.y { background: #febc2e; }
+.dot.g { background: #28c840; }
+.chrome-url {
+  flex: 1; background: rgba(255,255,255,0.07); border-radius: 5px;
+  padding: 4px 10px; font-size: 11px; color: #555; margin: 0 10px;
+}
+
+/* ── CONCEPT VISIBILITY ── */
+.concept { display: none; }
+.concept.active { display: block; }
+
+/* ── FEATURE NOTES PANEL ── */
+.notes-panel {
+  width: 340px; background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; padding: 20px;
+  display: flex; flex-direction: column; gap: 14px;
+}
+.notes-panel h3 { font-size: 13px; font-weight: 700; color: #ddd; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.07); }
+.note-item { display: flex; gap: 10px; align-items: flex-start; }
+.note-dot { width: 7px; height: 7px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+.note-item h4 { font-size: 12px; font-weight: 700; color: #e2e8f0; margin-bottom: 3px; }
+.note-item p { font-size: 11px; color: #555; line-height: 1.55; }
+.badge {
+  text-align: center; font-size: 11px; font-weight: 700;
+  padding: 5px 14px; border-radius: 999px; display: inline-block; margin: 4px auto 0;
+}
+
+/* ── SHARED PULSE ── */
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.25} }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes slide-up { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+/* ══════════════════════════════════════════════
+   CONCEPT 1 — NEURAL DARK (current vibe elevated)
+   ══════════════════════════════════════════════ */
+.c1-popup {
+  background: linear-gradient(160deg, #0f0914 0%, #0a1020 100%);
+  min-height: 560px;
+}
+.c1-header {
+  padding: 22px 20px 18px;
+  background: linear-gradient(135deg, rgba(244,63,94,0.08) 0%, rgba(15,9,20,0) 60%);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.c1-brand { display: flex; align-items: center; gap: 10px; }
+.c1-icon {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, #f43f5e, #be123c);
+  border-radius: 10px; font-size: 18px;
+  display: flex; align-items: center; justify-content: center;
+}
+.c1-title { font-size: 15px; font-weight: 800; color: #fff; letter-spacing: -0.3px; }
+.c1-tagline { font-size: 10px; color: #f43f5e; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; margin-top: 1px; }
+.c1-scraping-pill {
+  display: flex; align-items: center; gap: 5px;
+  background: rgba(244,63,94,0.12); border: 1px solid rgba(244,63,94,0.25);
+  border-radius: 999px; padding: 5px 11px; font-size: 11px; color: #fb7185; font-weight: 600;
+}
+.c1-pulse { width: 6px; height: 6px; background: #f43f5e; border-radius: 50%; animation: pulse 1.4s ease infinite; }
+
+.c1-search {
+  margin: 16px 16px 0;
+  display: flex; gap: 8px;
+}
+.c1-input {
+  flex: 1; background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1); border-radius: 9px;
+  padding: 10px 14px; color: #fff; font-size: 13px; font-family: inherit;
+  outline: none;
+}
+.c1-btn {
+  background: linear-gradient(135deg, #f43f5e, #e11d48);
+  color: #fff; border: none; border-radius: 9px;
+  padding: 0 18px; font-weight: 700; font-size: 13px;
+  cursor: pointer; font-family: inherit; white-space: nowrap;
+}
+
+.c1-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 11px; }
+
+/* Source progress */
+.c1-sources-card {
+  background: rgba(255,255,255,0.035); border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px; padding: 13px;
+}
+.c1-sources-label { font-size: 10px; color: #555; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 10px; }
+.c1-source-row { display: flex; flex-direction: column; gap: 5px; }
+.c1-source {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 11px; color: #888;
+}
+.c1-src-icon { font-size: 13px; width: 18px; text-align: center; }
+.c1-src-name { flex: 1; }
+.c1-src-bar { width: 60px; height: 3px; background: rgba(255,255,255,0.07); border-radius: 999px; overflow: hidden; }
+.c1-src-fill { height: 100%; border-radius: 999px; }
+.c1-src-done { color: #4ade80; }
+
+/* Verdict card */
+.c1-verdict {
+  background: rgba(244,63,94,0.07); border: 1px solid rgba(244,63,94,0.2);
+  border-radius: 12px; padding: 14px;
+}
+.c1-verdict-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.c1-verdict-label { font-size: 11px; color: #f43f5e; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
+.c1-score {
+  background: rgba(244,63,94,0.2); border: 1px solid rgba(244,63,94,0.3);
+  border-radius: 8px; padding: 4px 10px;
+  font-size: 14px; font-weight: 800; color: #fb7185;
+}
+.c1-verdict-emoji { font-size: 22px; margin-bottom: 6px; display: block; }
+.c1-verdict-text { font-size: 12px; color: #cbd5e1; line-height: 1.6; }
+
+/* Insight cards */
+.c1-insight {
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 11px; padding: 12px;
+}
+.c1-insight-head { display: flex; align-items: center; gap: 7px; margin-bottom: 7px; }
+.c1-insight-icon { font-size: 14px; }
+.c1-insight-title { font-size: 11px; font-weight: 700; color: #e2e8f0; }
+.c1-insight-text { font-size: 12px; color: #94a3b8; line-height: 1.6; }
+
+/* 2-col mini cards */
+.c1-mini-row { display: flex; gap: 9px; }
+.c1-mini {
+  flex: 1; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px; padding: 11px;
+}
+.c1-mini-head { font-size: 10px; color: #555; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 700; margin-bottom: 5px; }
+.c1-mini-text { font-size: 11px; color: #94a3b8; line-height: 1.5; }
+
+/* Tabs */
+.c1-tabs {
+  display: flex; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 8px; padding: 3px; gap: 2px;
+}
+.c1-tab {
+  flex: 1; padding: 7px; border-radius: 6px;
+  font-size: 12px; font-weight: 600; color: #555; text-align: center; cursor: pointer;
+  transition: all 0.2s; border: none; background: transparent; font-family: inherit;
+}
+.c1-tab.active { background: #f43f5e; color: #fff; }
+
+/* Footer */
+.c1-footer {
+  border-top: 1px solid rgba(255,255,255,0.05); padding: 11px 16px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.c1-footer span { font-size: 11px; color: #444; cursor: pointer; }
+.c1-footer span:hover { color: #f43f5e; }
+
+
+/* ══════════════════════════════════════════════
+   CONCEPT 2 — CLEAN PRO (light, polished)
+   ══════════════════════════════════════════════ */
+.c2-popup { background: #f4f5f7; min-height: 560px; }
+
+.c2-header {
+  background: #fff; padding: 14px 18px;
+  border-bottom: 1px solid #eaecf0;
+  display: flex; align-items: center; gap: 10px;
+}
+.c2-logo {
+  width: 36px; height: 36px; background: linear-gradient(135deg, #f43f5e, #be123c);
+  border-radius: 10px; display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.c2-title { font-size: 14px; font-weight: 800; color: #111827; }
+.c2-sub { font-size: 10px; color: #9ca3af; text-transform: uppercase; letter-spacing: 1px; margin-top: 1px; }
+.c2-live {
+  margin-left: auto; background: #fef2f2; border: 1px solid #fecaca;
+  color: #ef4444; font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 999px;
+  display: flex; align-items: center; gap: 4px;
+}
+.c2-live-dot { width: 5px; height: 5px; background: #ef4444; border-radius: 50%; animation: pulse 1.4s infinite; }
+
+.c2-search {
+  background: #fff; border-bottom: 1px solid #eaecf0; padding: 12px 16px;
+  display: flex; gap: 8px;
+}
+.c2-input {
+  flex: 1; background: #f9fafb; border: 1.5px solid #e5e7eb;
+  border-radius: 9px; padding: 9px 13px; font-size: 13px; color: #111827;
+  font-family: inherit; outline: none;
+}
+.c2-btn {
+  background: #f43f5e; color: #fff; border: none; border-radius: 9px;
+  padding: 0 16px; font-weight: 700; font-size: 13px; cursor: pointer; font-family: inherit;
+}
+
+.c2-body { padding: 14px 14px; display: flex; flex-direction: column; gap: 10px; }
+.c2-section-label {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 1.2px;
+  color: #9ca3af; font-weight: 700; margin-bottom: 4px;
+}
+
+/* Scraping progress card */
+.c2-progress-card {
+  background: #fff; border: 1.5px solid #e5e7eb; border-radius: 13px; padding: 14px;
+}
+.c2-prog-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+.c2-prog-title { font-size: 12px; font-weight: 700; color: #1f2937; }
+.c2-prog-count { font-size: 12px; font-weight: 700; color: #f43f5e; }
+.c2-prog-bar { height: 6px; background: #fee2e2; border-radius: 999px; margin-bottom: 10px; overflow: hidden; }
+.c2-prog-fill { height: 100%; background: linear-gradient(90deg,#f43f5e,#fb7185); border-radius: 999px; width: 80%; }
+.c2-source-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.c2-chip {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 999px;
+}
+.c2-chip.done { background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; }
+.c2-chip.going { background: #fef2f2; color: #f43f5e; border: 1px solid #fecaca; }
+.c2-chip.wait { background: #f9fafb; color: #9ca3af; border: 1px solid #e5e7eb; }
+
+/* Verdict card */
+.c2-verdict {
+  background: linear-gradient(135deg, #fff1f2, #fff); border: 1.5px solid #fecaca;
+  border-radius: 13px; padding: 14px;
+}
+.c2-verdict-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.c2-verdict-left { display: flex; align-items: center; gap: 8px; }
+.c2-verdict-emoji { font-size: 24px; }
+.c2-verdict-name { font-size: 13px; font-weight: 800; color: #111827; }
+.c2-verdict-sub { font-size: 10px; color: #9ca3af; margin-top: 1px; }
+.c2-score-badge {
+  background: #f43f5e; color: #fff; border-radius: 10px;
+  padding: 6px 12px; font-size: 15px; font-weight: 800;
+}
+.c2-verdict-text { font-size: 12px; color: #4b5563; line-height: 1.65; }
+
+/* Insight rows */
+.c2-insight {
+  background: #fff; border: 1.5px solid #e5e7eb; border-radius: 12px; padding: 12px;
+}
+.c2-insight-head { display: flex; align-items: center; gap: 7px; margin-bottom: 6px; }
+.c2-insight-icon { font-size: 15px; }
+.c2-insight-title { font-size: 12px; font-weight: 700; color: #1f2937; }
+.c2-badge-new {
+  margin-left: auto; background: #f43f5e; color: #fff;
+  font-size: 9px; font-weight: 800; padding: 2px 7px; border-radius: 999px;
+}
+.c2-insight-text { font-size: 12px; color: #6b7280; line-height: 1.6; }
+.c2-flag { color: #ef4444; font-size: 11px; font-weight: 600; margin-top: 5px; }
+
+/* Mini grid */
+.c2-mini-grid { display: flex; gap: 8px; }
+.c2-mini {
+  flex: 1; background: #fff; border: 1.5px solid #e5e7eb; border-radius: 11px; padding: 11px;
+}
+.c2-mini-head { font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px; color: #9ca3af; font-weight: 700; margin-bottom: 4px; }
+.c2-mini-text { font-size: 11px; color: #374151; line-height: 1.5; font-weight: 500; }
+.c2-mini-num { font-size: 20px; font-weight: 800; color: #111827; }
+.c2-mini-delta { font-size: 10px; color: #ef4444; font-weight: 600; margin-top: 1px; }
+
+/* Tabs */
+.c2-tabs { display: flex; background: #fff; border: 1.5px solid #e5e7eb; border-radius: 10px; padding: 3px; }
+.c2-tab {
+  flex: 1; padding: 8px; border-radius: 7px; text-align: center;
+  font-size: 12px; font-weight: 700; cursor: pointer; border: none;
+  background: transparent; color: #9ca3af; font-family: inherit; transition: all 0.2s;
+}
+.c2-tab.active { background: #f43f5e; color: #fff; }
+
+/* References */
+.c2-ref { background: #fff; border: 1.5px solid #e5e7eb; border-radius: 11px; padding: 11px; }
+.c2-ref-top { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+.c2-ref-icon { font-size: 14px; }
+.c2-ref-name { font-size: 12px; font-weight: 700; color: #1f2937; flex: 1; }
+.c2-ref-stars { font-size: 11px; }
+.c2-ref-url { font-size: 10px; color: #9ca3af; margin-bottom: 5px; }
+.c2-ref-reason { font-size: 11px; color: #6b7280; line-height: 1.5; }
+.c2-ref-score {
+  display: inline-block; background: #fef2f2; color: #f43f5e;
+  font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 999px;
+  border: 1px solid #fecaca; margin-top: 5px;
+}
+
+/* Footer */
+.c2-footer {
+  background: #fff; border-top: 1px solid #eaecf0;
+  display: flex; justify-content: space-around; padding: 10px 0;
+}
+.c2-footer-item { display: flex; flex-direction: column; align-items: center; gap: 2px; cursor: pointer; }
+.c2-footer-icon { font-size: 17px; }
+.c2-footer-label { font-size: 9px; font-weight: 700; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; }
+.c2-footer-item.active .c2-footer-label { color: #f43f5e; }
+
+
+/* ══════════════════════════════════════════════
+   CONCEPT 3 — BOLD GRADIENT (immersive travel)
+   ══════════════════════════════════════════════ */
+.c3-popup {
+  background: linear-gradient(160deg, #1a0005 0%, #2d0a1a 40%, #0f0520 100%);
+  min-height: 560px;
+}
+
+.c3-header { padding: 18px 18px 0; }
+.c3-top-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.c3-brand { display: flex; align-items: center; gap: 9px; }
+.c3-logo-bg {
+  width: 34px; height: 34px; background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 17px;
+}
+.c3-title { font-size: 14px; font-weight: 800; color: #fff; letter-spacing: -0.2px; }
+.c3-tag { font-size: 10px; color: rgba(255,255,255,0.4); margin-top: 1px; }
+.c3-settings {
+  width: 30px; height: 30px; background: rgba(255,255,255,0.08);
+  border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; cursor: pointer;
+}
+
+/* Search bar */
+.c3-search-row { display: flex; gap: 8px; margin-bottom: 16px; }
+.c3-input {
+  flex: 1; background: rgba(255,255,255,0.09); backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.15); border-radius: 10px;
+  padding: 10px 14px; color: #fff; font-size: 13px; font-family: inherit; outline: none;
+}
+.c3-btn {
+  background: linear-gradient(135deg, #f43f5e, #be123c);
+  color: #fff; border: none; border-radius: 10px; padding: 0 16px;
+  font-weight: 700; font-size: 13px; cursor: pointer; font-family: inherit;
+  box-shadow: 0 4px 16px rgba(244,63,94,0.35);
+}
+
+/* Destination hero */
+.c3-hero {
+  background: rgba(255,255,255,0.08); backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.12); border-radius: 16px; padding: 16px;
+}
+.c3-hero-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
+.c3-dest-label { font-size: 10px; color: rgba(255,255,255,0.4); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+.c3-dest-name { font-size: 20px; font-weight: 800; color: #fff; margin-top: 2px; letter-spacing: -0.5px; }
+.c3-dest-sub { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+.c3-verdict-chip {
+  display: flex; flex-direction: column; align-items: center;
+  background: rgba(244,63,94,0.2); border: 1px solid rgba(244,63,94,0.35);
+  border-radius: 12px; padding: 8px 14px;
+}
+.c3-verdict-score { font-size: 20px; font-weight: 800; color: #fb7185; }
+.c3-verdict-lbl { font-size: 9px; color: rgba(244,63,94,0.7); font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; }
+.c3-sources-row { display: flex; gap: 8px; }
+.c3-source-stat { flex: 1; text-align: center; }
+.c3-source-num { font-size: 18px; font-weight: 800; color: #fff; }
+.c3-source-lbl { font-size: 9px; color: rgba(255,255,255,0.35); margin-top: 1px; }
+
+.c3-body { padding: 0 16px 16px; display: flex; flex-direction: column; gap: 11px; }
+
+/* CTA buttons */
+.c3-cta-row { display: flex; gap: 9px; }
+.c3-cta {
+  flex: 1; padding: 11px; border-radius: 12px; border: none;
+  font-size: 12px; font-weight: 700; cursor: pointer; font-family: inherit;
+  transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 5px;
+}
+.c3-cta-main {
+  background: linear-gradient(135deg, #f43f5e, #be123c);
+  color: #fff; box-shadow: 0 4px 18px rgba(244,63,94,0.35);
+}
+.c3-cta-main:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(244,63,94,0.45); }
+.c3-cta-ghost { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.65); border: 1px solid rgba(255,255,255,0.12); }
+
+/* Insight card */
+.c3-card {
+  background: rgba(255,255,255,0.06); backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.09); border-radius: 14px; padding: 14px;
+}
+.c3-card-head { display: flex; align-items: center; gap: 7px; margin-bottom: 10px; }
+.c3-card-icon { font-size: 16px; }
+.c3-card-title { font-size: 13px; font-weight: 700; color: #fff; }
+.c3-ai-pill {
+  margin-left: auto; background: linear-gradient(135deg, #f43f5e, #be123c);
+  border-radius: 999px; padding: 3px 9px; font-size: 9px; font-weight: 800; color: #fff; letter-spacing: 0.5px;
+}
+.c3-bullets { display: flex; flex-direction: column; gap: 7px; }
+.c3-bullet { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; color: rgba(255,255,255,0.7); line-height: 1.55; }
+.c3-bullet-dot { width: 5px; height: 5px; background: #f43f5e; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+
+/* Source list */
+.c3-sources-card {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; overflow: hidden;
+}
+.c3-src-title { padding: 10px 14px; font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.c3-src-item { display: flex; align-items: center; gap: 10px; padding: 9px 14px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+.c3-src-item:last-child { border: none; }
+.c3-src-emoji { font-size: 14px; }
+.c3-src-name { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.75); flex: 1; }
+.c3-src-url { font-size: 10px; color: rgba(255,255,255,0.3); }
+.c3-src-stars { font-size: 11px; }
+.c3-src-rating { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 999px; }
+.c3-rating-high { background: rgba(74,222,128,0.15); color: #4ade80; }
+.c3-rating-mid { background: rgba(251,191,36,0.15); color: #fbbf24; }
+.c3-rating-low { background: rgba(244,63,94,0.15); color: #f87171; }
+
+/* Bottom note */
+.bottom-note { text-align: center; margin-top: 52px; color: #3a3a3a; font-size: 13px; line-height: 1.8; max-width: 900px; margin-left: auto; margin-right: auto; }
+.bottom-note strong { color: #555; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>🧳 <span>Beyond The Brochure</span> — UI Redesign Concepts</h1>
+  <p>3 redesigned extension mockups — click tabs to compare · Showing Results view (post-analysis)</p>
+</div>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="show(1,this)">1 — Neural Dark ✦</button>
+  <button class="tab-btn" onclick="show(2,this)">2 — Clean Pro ☀</button>
+  <button class="tab-btn" onclick="show(3,this)">3 — Bold Gradient 🚀</button>
+</div>
+
+
+<!-- ═══════════════ CONCEPT 1 ═══════════════ -->
+<div class="concept active" id="c1">
+  <div class="stage">
+    <div class="mockup-col">
+      <div class="mockup-label">Extension Popup — Results View</div>
+      <div class="chrome-frame">
+        <div class="chrome-bar">
+          <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+          <div class="chrome-url">chrome-extension://beyond-the-brochure</div>
+        </div>
+        <div class="c1-popup">
+          <!-- Header -->
+          <div class="c1-header">
+            <div class="c1-brand">
+              <div class="c1-icon">🧳</div>
+              <div>
+                <div class="c1-title">Beyond The Brochure</div>
+                <div class="c1-tagline">The Blunt Truth</div>
+              </div>
+            </div>
+            <div class="c1-scraping-pill">
+              <div class="c1-pulse"></div> 10/10 Sources
+            </div>
+          </div>
+
+          <!-- Search -->
+          <div class="c1-search">
+            <input class="c1-input" type="text" value="Bali, Indonesia" readonly>
+            <button class="c1-btn">Analyze</button>
+          </div>
+
+          <div class="c1-body">
+            <!-- Tabs -->
+            <div class="c1-tabs">
+              <button class="c1-tab active">Analysis</button>
+              <button class="c1-tab">References</button>
+            </div>
+
+            <!-- Verdict -->
+            <div class="c1-verdict">
+              <div class="c1-verdict-top">
+                <span class="c1-verdict-label">🎯 Verdict</span>
+                <span class="c1-score">⚠️ 6.5 / 10</span>
+              </div>
+              <div class="c1-verdict-text">"Bali is genuinely stunning — but catastrophically overtouristed. The 'spiritual vibe' exists mostly for Instagram. Go in shoulder season or skip Seminyak entirely."</div>
+            </div>
+
+            <!-- Hidden Truths -->
+            <div class="c1-insight">
+              <div class="c1-insight-head">
+                <span class="c1-insight-icon">🤫</span>
+                <span class="c1-insight-title">Hidden Truths</span>
+              </div>
+              <div class="c1-insight-text">Kuta Beach has a sewage smell in July–Aug. "Entrance fees" at temples are selectively charged to foreigners. The $8 moped rental often comes with inflated repair claims.</div>
+            </div>
+
+            <!-- Mini row -->
+            <div class="c1-mini-row">
+              <div class="c1-mini">
+                <div class="c1-mini-head">⛈ Monsoon Risk</div>
+                <div class="c1-mini-text">Nov–March is genuinely rainy. "Light showers" in travel blogs = daily 4-hour downpours. Avoid wet season.</div>
+              </div>
+              <div class="c1-mini">
+                <div class="c1-mini-head">💸 Real Budget</div>
+                <div class="c1-mini-text"><strong style="color:#f1f5f9">$65–90/day</strong> solo — not the $25/day blogger fantasy. Villas, food & transport add up fast.</div>
+              </div>
+            </div>
+
+            <!-- Off-Radar -->
+            <div class="c1-insight">
+              <div class="c1-insight-head">
+                <span class="c1-insight-icon">🧭</span>
+                <span class="c1-insight-title">Off-Radar Tips</span>
+              </div>
+              <div class="c1-insight-text">Skip Ubud's main street — try Sidemen Valley instead. Amed for diving beats Nusa Lembongan. Munduk for rice terraces without the selfie crowds.</div>
+            </div>
+
+            <!-- Source progress -->
+            <div class="c1-sources-card">
+              <div class="c1-sources-label">Sources Scraped</div>
+              <div class="c1-source-row">
+                <div class="c1-source">
+                  <span class="c1-src-icon">🔴</span>
+                  <span class="c1-src-name">reddit.com</span>
+                  <div class="c1-src-bar"><div class="c1-src-fill" style="width:100%;background:#f43f5e"></div></div>
+                  <span class="c1-src-done" style="font-size:10px">✓</span>
+                </div>
+                <div class="c1-source">
+                  <span class="c1-src-icon">🌍</span>
+                  <span class="c1-src-name">lonelyplanet.com</span>
+                  <div class="c1-src-bar"><div class="c1-src-fill" style="width:100%;background:#fb923c"></div></div>
+                  <span class="c1-src-done" style="font-size:10px">✓</span>
+                </div>
+                <div class="c1-source">
+                  <span class="c1-src-icon">🟢</span>
+                  <span class="c1-src-name">tripadvisor.com</span>
+                  <div class="c1-src-bar"><div class="c1-src-fill" style="width:100%;background:#4ade80"></div></div>
+                  <span class="c1-src-done" style="font-size:10px">✓</span>
+                </div>
+                <div class="c1-source" style="color:#555;">
+                  <span class="c1-src-icon">⚫</span>
+                  <span class="c1-src-name">nomadicmatt.com</span>
+                  <div class="c1-src-bar"><div class="c1-src-fill" style="width:100%;background:#6b7280"></div></div>
+                  <span class="c1-src-done" style="font-size:10px">✓</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <div class="c1-footer">
+            <span>📤 Export</span>
+            <span>🔁 Retry</span>
+            <span>⚙ Settings</span>
+            <span style="color:#f43f5e;font-weight:700;">btb</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notes -->
+    <div class="notes-panel">
+      <h3>Concept 1 — Neural Dark</h3>
+      <div class="note-item">
+        <div class="note-dot" style="background:#f43f5e"></div>
+        <div><h4>Retains your brand colours</h4><p>Keeps the existing rose/red accent (#f43f5e) and dark gradient base — feels like a premium upgrade, not a rebrand.</p></div>
+      </div>
+      <div class="note-item">
+        <div class="note-dot" style="background:#f43f5e"></div>
+        <div><h4>Verdict pinned at the top</h4><p>The score chip (⚠️ 6.5/10) and blunt text is the first thing users see — reinforces the "no fluff" brand promise immediately.</p></div>
+      </div>
+      <div class="note-item">
+        <div class="note-dot" style="background:#f43f5e"></div>
+        <div><h4>Source tracker in the UI</h4><p>Mini rows showing reddit, Lonely Planet, TripAdvisor scraped builds trust — users see exactly where the data came from.</p></div>
+      </div>
+      <div class="note-item">
+        <div class="note-dot" style="background:#f43f5e"></div>
+        <div><h4>2-column mini cards</h4><p>Monsoon Risk + Budget side by side saves vertical space while keeping all 7 insight categories accessible without heavy scrolling.</p></div>
+      </div>
+      <div class="note-item">
+        <div class="note-dot" style="background:#f43f5e"></div>
+        <div><h4>Best for</h4><p>Night-owl trip planners, digital nomads, Reddit-heavy users who already live in dark mode and want dense info fast.</p></div>
+      </div>
+      <div style="text-align:center"><span class="badge" style="background:rgba(244,63,94,0.12);color:#fb7185;border:1px solid rgba(244,63,94,0.25)">🌙 Closest to Current Design</span></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════ CONCEPT 2 ═══════════════ -->
+<div class="concept" id="c2">
+  <div class="stage">
+    <div class="mockup-col">
+      <div class="mockup-label">Extension Popup — References View</div>
+      <div class="chrome-frame">
+        <div class="chrome-bar">
+          <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+          <div class="chrome-url">chrome-extension://beyond-the-brochure</div>
+        </div>
+        <div class="c2-popup">
+          <!-- Header -->
+          <div class="c2-header">
+            <div class="c2-logo">🧳</div>
+            <div>
+              <div class="c2-title">Beyond The Brochure</div>
+              <div class="c2-sub">The Blunt Truth</div>
+            </div>
+            <div class="c2-live">
+              <div class="c2-live-dot"></div>
+              Analysed
+            </div>
+          </div>
+
+          <!-- Search -->
+          <div class="c2-search">
+            <input class="c2-input" type="text" value="Bali, Indonesia" readonly>
+            <button class="c2-btn">Analyze</button>
+          </div>
+
+          <div class="c2-body">
+            <!-- Tabs -->
+            <div class="c2-tabs">
+              <button class="c2-tab">Analysis</button>
+              <button class="c2-tab active">References</button>
+            </div>
+
+            <!-- Source chips summary -->
+            <div class="c2-progress-card">
+              <div class="c2-prog-top">
+                <span class="c2-prog-title">Sources Scraped</span>
+                <span class="c2-prog-count">10 / 10</span>
+              </div>
+              <div class="c2-prog-bar"><div class="c2-prog-fill"></div></div>
+              <div class="c2-source-chips">
+                <div class="c2-chip done">✓ Reddit</div>
+                <div class="c2-chip done">✓ Lonely Planet</div>
+                <div class="c2-chip done">✓ TripAdvisor</div>
+                <div class="c2-chip done">✓ Nomadic Matt</div>
+                <div class="c2-chip done">✓ Points Guy</div>
+                <div class="c2-chip done">✓ Rick Steves</div>
+                <div class="c2-chip done">✓ Travel+Leisure</div>
+                <div class="c2-chip done">✓ Condé Nast</div>
+                <div class="c2-chip done">✓ WikiVoyage</div>
+                <div class="c2-chip done">✓ Atlas Obscura</div>
+              </div>
+            </div>
+
+            <!-- Reference cards with AI ratings -->
+            <div>
+              <div class="c2-section-label">AI Reliability Ratings — click any source to rate</div>
+              <div style="display:flex;flex-direction:column;gap:8px">
+
+                <div class="c2-ref">
+                  <div class="c2-ref-top">
+                    <span class="c2-ref-icon">🔴</span>
+                    <span class="c2-ref-name">Reddit r/travel</span>
+                    <span class="c2-ref-stars">⭐⭐⭐⭐⭐</span>
+                  </div>
+                  <div class="c2-ref-url">reddit.com/r/travel/bali-honest-2024</div>
+                  <div class="c2-ref-reason">Real traveller experiences, unfiltered opinions. High signal-to-noise ratio for honest destination intel.</div>
+                  <span class="c2-ref-score">Reliability: 9/10</span>
+                </div>
+
+                <div class="c2-ref">
+                  <div class="c2-ref-top">
+                    <span class="c2-ref-icon">🌍</span>
+                    <span class="c2-ref-name">Lonely Planet</span>
+                    <span class="c2-ref-stars">⭐⭐⭐</span>
+                  </div>
+                  <div class="c2-ref-url">lonelyplanet.com/indonesia/bali</div>
+                  <div class="c2-ref-reason">Generally accurate but editorially polished — tends to soften negatives. Good for logistics, weaker for candid warnings.</div>
+                  <span class="c2-ref-score">Reliability: 6/10</span>
+                </div>
+
+                <div class="c2-ref">
+                  <div class="c2-ref-top">
+                    <span class="c2-ref-icon">🟢</span>
+                    <span class="c2-ref-name">TripAdvisor</span>
+                    <span class="c2-ref-stars">⭐⭐⭐</span>
+                  </div>
+                  <div class="c2-ref-url">tripadvisor.com/Tourism-g297696-Bali</div>
+                  <div class="c2-ref-reason">Mixed reliability — reviews can be gamed. 3-star reviews most trustworthy; overall ratings skew positive due to selection bias.</div>
+                  <span class="c2-ref-score">Reliability: 5/10</span>
+                </div>
+
+                <div class="c2-ref">
+                  <div class="c2-ref-top">
+                    <span class="c2-ref-icon">🗺</span>
+                    <span class="c2-ref-name">Atlas Obscura</span>
+                    <span class="c2-ref-stars">⭐⭐⭐⭐</span>
+                  </div>
+                  <div class="c2-ref-url">atlasobscura.com/things-to-do/bali</div>
+                  <div class="c2-ref-reason">Excellent for off-radar tips and hidden spots. Not useful for safety or budget info, but gold for avoiding clichés.</div>
+                  <span class="c2-ref-score">Reliability: 8/10</span>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <div class="c2-footer">
+            <div class="c2-footer-item">
+              <div class="c2-footer-icon">🏠</div>
+              <div class="c2-footer-label">Home</div>
+            </div>
+            <div class="c2-footer-item active">
+              <div class="c2-footer-icon">🔗</div>
+              <div class="c2-footer-label" style="color:#f43f5e">Sources</div>
+            </div>
+            <div class="c2-footer-item">
+              <div class="c2-footer-icon">📤</div>
+              <div class="c2-footer-label">Export</div>
+            </div>
+            <div class="c2-footer-item">
+              <div class="c2-footer-icon">⚙</div>
+              <div class="c2-footer-label">Settings</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notes -->
+    <div class="notes-panel">
+      <h3>Concept 2 — Clean Pro</h3>
+      <div class="note-item">
+        <div class="note-dot" style="background:#f43f5e"></div>
+        <div><h4>References tab front-and-centre</h4><p>Shows the full References view — your unique AI reliability scoring feature (the /rate-reference endpoint) gets much more visibility here.</p></div>
+      </div>
+      <div class="note-item">
+        <div class="note-dot" style="background:#f43f5e"></div>
+        <div><h4>All 10 sources as chips</h4><p>The progress card shows all 10 scraped sources (Reddit → Atlas Obscura) as coloured chips — users instantly see the multi-source breadth that makes BtB trustworthy.</p></div>
+      </div>
+      <div class="note-item">
+        <div class="note-dot" style="background:#f43f5e"></div>
+        <div><h4>AI reliability scores displayed</h4><p>Each reference card shows star rating + Gemini's reasoning + a score badge — turns the backend's /rate-reference into a visually compelling trust layer.</p></div>
+      </div>
+      <div class="note-item">
+        <div class="note-dot" style="background:#f43f5e"></div>
+        <div><h4>Light theme for focus</h4><p>White cards on a light grey background keeps cognitive load low when reading detailed reliability reasoning — ideal for comparison scanning.</p></div>
+      </div>
+      <div class="note-item">
+        <div class="note-dot" style="background:#f43f5e"></div>
+        <div><h4>Best for</h4><p>Mainstream users, casual travellers, people who prefer readability over aesthetics. Also strongest for product demos and screenshots.</p></div>
+      </div>
+      <div style="text-align:center"><span class="badge" style="background:rgba(244,63,94,0.08);color:#f43f5e;border:1px solid rgba(244,63,94,0.2)">☀ Best for References Feature</span></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════ CONCEPT 3 ═══════════════ -->
+<div class="concept" id="c3">
+  <div class="stage">
+    <div class="mockup-col">
+      <div class="mockup-label">Extension Popup — Analysis View</div>
+      <div class="chrome-frame">
+        <div class="chrome-bar">
+          <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+          <div class="chrome-url">chrome-extension://beyond-the-brochure</div>
+        </div>
+        <div class="c3-popup">
+          <!-- Header -->
+          <div class="c3-header">
+            <div class="c3-top-row">
+              <div class="c3-brand">
+                <div class="c3-logo-bg">🧳</div>
+                <div>
+                  <div class="c3-title">Beyond The Brochure</div>
+                  <div class="c3-tag">The Blunt Truth · Powered by Gemini</div>
+                </div>
+              </div>
+              <div class="c3-settings">⚙</div>
+            </div>
+            <!-- Search -->
+            <div class="c3-search-row">
+              <input class="c3-input" type="text" value="Bali, Indonesia" readonly>
+              <button class="c3-btn">Analyze</button>
+            </div>
+            <!-- Hero card -->
+            <div class="c3-hero">
+              <div class="c3-hero-top">
+                <div>
+                  <div class="c3-dest-label">Destination</div>
+                  <div class="c3-dest-name">Bali, Indonesia 🇮🇩</div>
+                  <div class="c3-dest-sub">10 sources · 3.2s · Gemini 2.0 Flash</div>
+                </div>
+                <div class="c3-verdict-chip">
+                  <div class="c3-verdict-score">⚠️ 6.5</div>
+                  <div class="c3-verdict-lbl">Verdict</div>
+                </div>
+              </div>
+              <div class="c3-sources-row">
+                <div class="c3-source-stat">
+                  <div class="c3-source-num">10</div>
+                  <div class="c3-source-lbl">Sources</div>
+                </div>
+                <div class="c3-source-stat">
+                  <div class="c3-source-num">7</div>
+                  <div class="c3-source-lbl">Red Flags</div>
+                </div>
+                <div class="c3-source-stat">
+                  <div class="c3-source-num">4</div>
+                  <div class="c3-source-lbl">Hidden Gems</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Body -->
+          <div class="c3-body">
+            <!-- CTAs -->
+            <div class="c3-cta-row">
+              <button class="c3-cta c3-cta-main">🎯 Full Analysis</button>
+              <button class="c3-cta c3-cta-ghost">🔗 References</button>
+              <button class="c3-cta c3-cta-ghost">📤 Export</button>
+            </div>
+
+            <!-- Verdict -->
+            <div class="c3-card">
+              <div class="c3-card-head">
+                <span class="c3-card-icon">🎯</span>
+                <span class="c3-card-title">The Blunt Verdict</span>
+                <div class="c3-ai-pill">GEMINI AI</div>
+              </div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.7);line-height:1.65">"Bali is genuinely stunning but crushingly overtouristed. The 'spiritual vibe' is mostly for Instagram. Go in shoulder season, avoid Seminyak, and stop trusting travel blogs."</div>
+            </div>
+
+            <!-- Hidden Truths as bullets -->
+            <div class="c3-card">
+              <div class="c3-card-head">
+                <span class="c3-card-icon">🤫</span>
+                <span class="c3-card-title">Hidden Truths</span>
+              </div>
+              <div class="c3-bullets">
+                <div class="c3-bullet"><div class="c3-bullet-dot"></div><span>Kuta Beach smells of sewage in peak season — locals don't swim there</span></div>
+                <div class="c3-bullet"><div class="c3-bullet-dot"></div><span>Temple "entrance fees" are selectively enforced on foreigners for profit</span></div>
+                <div class="c3-bullet"><div class="c3-bullet-dot"></div><span>$6 moped rentals often end with inflated "damage" charges on return</span></div>
+              </div>
+            </div>
+
+            <!-- Sources rated -->
+            <div class="c3-sources-card">
+              <div class="c3-src-title">AI-Rated Sources</div>
+              <div class="c3-src-item">
+                <span class="c3-src-emoji">🔴</span>
+                <div style="flex:1"><div class="c3-src-name">Reddit r/travel</div><div class="c3-src-url">reddit.com</div></div>
+                <span class="c3-src-rating c3-rating-high">9/10</span>
+              </div>
+              <div class="c3-src-item">
+                <span class="c3-src-emoji">🌍</span>
+                <div style="flex:1"><div class="c3-src-name">Lonely Planet</div><div class="c3-src-url">lonelyplanet.com</div></div>
+                <span class="c3-src-rating c3-rating-mid">6/10</span>
+              </div>
+              <div class="c3-src-item">
+                <span class="c3-src-emoji">🟢</span>
+                <div style="flex:1"><div class="c3-src-name">TripAdvisor</div><div class="c3-src-url">tripadvisor.com</div></div>
+                <span class="c3-src-rating c3-rating-mid">5/10</span>
+              </div>
+              <div class="c3-src-item">
+                <span class="c3-src-emoji">🗺</span>
+                <div style="flex:1"><div class="c3-src-name">Atlas Obscura</div><div class="c3-src-url">atlasobscura.com</div></div>
+                <span class="c3-src-rating c3-rating-high">8/10</span>
+              </div>
+              <div class="c3-src-item">
+                <span class="c3-src-emoji">✈️</span>
+                <div style="flex:1"><div class="c3-src-name">Nomadic Matt</div><div class="c3-src-url">nomadicmatt.com</div></div>
+                <span class="c3-src-rating c3-rating-low">4/10</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notes -->
+    <div class="notes-panel">
+      <h3>Concept 3 — Bold Gradient</h3>
+      <div class="note-item">
+        <div class="note-dot" style="background:#f43f5e"></div>
+        <div><h4>Destination-as-hero card</h4><p>Bali's name is the focal point with a frosted glass card — makes the extension feel like a destination intelligence dashboard, not just a scraper tool.</p></div>
+      </div>
+      <div class="note-item">
+        <div class="note-dot" style="background:#f43f5e"></div>
+        <div><h4>Red Flags counter</h4><p>A "7 Red Flags" stat right in the hero card is provocative and on-brand — it teases the hidden truths before users even scroll, driving engagement.</p></div>
+      </div>
+      <div class="note-item">
+        <div class="note-dot" style="background:#f43f5e"></div>
+        <div><h4>"Powered by Gemini" credibility</h4><p>Showing "Gemini 2.0 Flash" and analysis time (3.2s) in the subtitle builds AI credibility — users know exactly what engine is giving them the truth.</p></div>
+      </div>
+      <div class="note-item">
+        <div class="note-dot" style="background:#f43f5e"></div>
+        <div><h4>Source reliability scores inline</h4><p>Colour-coded rating pills (green/amber/red) on every source make the AI rating system scannable in seconds — no need to click into a separate tab.</p></div>
+      </div>
+      <div class="note-item">
+        <div class="note-dot" style="background:#f43f5e"></div>
+        <div><h4>Best for</h4><p>Marketing screenshots, Product Hunt launches, social media demos — this is the concept that photographs best and creates the strongest first impression.</p></div>
+      </div>
+      <div style="text-align:center"><span class="badge" style="background:rgba(244,63,94,0.12);color:#fb7185;border:1px solid rgba(244,63,94,0.25)">🚀 Best for Launch & Marketing</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="bottom-note">
+  <strong>Each concept uses real BtB content:</strong> Bali destination · 10 actual scraped sources (Reddit → Atlas Obscura) · all 7 insight categories · Gemini AI reliability scoring<br>
+  Mockups show 3 different views — Dark shows Analysis cards, Light shows References tab, Gradient shows the hero summary view
+</div>
+
+<script>
+function show(n, btn) {
+  document.querySelectorAll('.concept').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('c' + n).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
