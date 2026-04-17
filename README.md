@@ -266,6 +266,8 @@ Both calls use `response_mime_type="application/json"` to get structured outputs
 | **AI** | Google Gemini (`google-genai` SDK) |
 | **Env Management** | python-dotenv |
 
+> **Note for instructors:** The backend invokes **Google Gemini** via the `google-genai` SDK (`client.models.generate_content`). The primary model is `GEMINI_MODEL` in `backend/.env` (code default: `gemini-2.5-flash-lite`). If that model exhausts retries without a successful response, **`call_gemini_with_retry()`** in `backend/main.py` automatically tries a **fallback model** (`gemini-2.5-flash`) before failing.
+
 ---
 
 ## ⚠️ Known Limitations
