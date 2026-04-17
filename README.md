@@ -29,14 +29,12 @@ Every travel blog, influencer reel, and tourism site is **selling you something*
 ---
 
 ## 📸 Demo
+[YoutubeDemo](https://www.youtube.com/watch?v=AhD0L2iNRyc)
 
 > *Screenshots and recordings of the extension in action*
+<img width="618" height="627" alt="image" src="https://github.com/user-attachments/assets/7d379ced-d5d4-420e-b648-c817f67edab4" />
 
-<!-- Add your screenshots/GIFs here -->
-<!-- Example:
-![Extension Popup](./docs/demo-popup.png)
-![Analysis Result for Bali](./docs/demo-bali.png)
--->
+<img width="658" height="617" alt="image" src="https://github.com/user-attachments/assets/c767b798-d313-40e1-8697-94cf157fd3dd" />
 
 | Feature | Preview |
 |---|---|
